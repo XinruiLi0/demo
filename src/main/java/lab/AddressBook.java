@@ -68,13 +68,13 @@ public class AddressBook {
 
 	}
 
-	public static void main(String[] args) {
-		AddressBook aBook = new AddressBook();
-//		BuddyInfo b1 = new BuddyInfo("Mike", 1234567890, 19);
-//		BuddyInfo b2 = new BuddyInfo("John", 1111111111, 16);
-//		aBook.addBuddy(b1);
-//		aBook.addBuddy(b2);
-
-		System.out.println(aBook.toString());
-	}
+//	public static void main(String[] args) {
+//		AddressBook aBook = new AddressBook();
+////		BuddyInfo b1 = new BuddyInfo("Mike", 1234567890, 19);
+////		BuddyInfo b2 = new BuddyInfo("John", 1111111111, 16);
+////		aBook.addBuddy(b1);
+////		aBook.addBuddy(b2);
+//
+//		System.out.println(aBook.toString());
+//	}
 }
