@@ -78,8 +78,6 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<addClasspath>true</addClasspath>
-								<classpathPrefix>lib/</classpathPrefix>
 								<mainClass>lab.AccessingDataRestApplication</mainClass>
 							</manifest>
 						</archive>
