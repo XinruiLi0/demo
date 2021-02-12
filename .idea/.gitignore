@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../:\IntelliJ Project\gs-accessing-data-jpa-master\initial\.idea/dataSources/
+/../../../../../:\IntelliJ Project\gs-serving-web-content-master\initial\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
