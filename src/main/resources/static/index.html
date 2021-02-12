@@ -27,7 +27,7 @@
         function search() {
             var name = document.getElementById("searchName").value;
             var request = new XMLHttpRequest();
-            request.open("GET", "http://localhost:8080/BuddyInfo/search/findByName?name=" + name);
+            request.open("GET", "/BuddyInfo/search/findByName?name=" + name);
             request.setRequestHeader('Content-Type', 'application/json');
             request.send();
             request.onload = function() {
@@ -42,7 +42,7 @@
         function _delete() {
             var id = document.getElementById("deleteID").value;
             var request = new XMLHttpRequest();
-            request.open("DELETE", "http://localhost:8080/BuddyInfo/" + id);
+            request.open("DELETE", "/BuddyInfo/" + id);
             request.setRequestHeader('Content-Type', 'application/json');
             request.send();
             request.onload = function() {
@@ -63,7 +63,7 @@
             data.phoneNumber = phoneNumber;
             data.age = age;
             var request = new XMLHttpRequest();
-            request.open("POST", "http://localhost:8080/BuddyInfo");
+            request.open("POST", "/BuddyInfo");
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify(data));
             request.onload = function() {
