@@ -9,7 +9,6 @@ import java.util.Collection;
 public class AddressBook {
 
 	private long id;
-
 	private Collection<BuddyInfo> lists;
 
 	public AddressBook() {

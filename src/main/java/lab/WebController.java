@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class GreetingController {
+public class WebController {
 
     @GetMapping("/index")
     public String greeting() {
@@ -25,5 +25,4 @@ public class GreetingController {
         model.addAttribute("buddyInfo", buddyInfo);
         return "result";
     }
-
 }

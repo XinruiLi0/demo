@@ -1,78 +1,109 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Address Book (SPA Version)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
     <h1>Address Book</h1>
+    <button type="button" onclick="_refresh()">Refresh Address Book</button>
+    <p> </p>
     <h2>Please select a action:</h2>
-    <h3>Buddy Information Search</h3>
-    <p>Please enter a name:</p>
-    <input type="text" id="searchName" name="name" />
-    <button type="button" onclick="search()">Search</button>
+    <h3>Buddy Information Create</h3>
+    <p>Please enter the name, phone number, and age:</p>
+    <p>Name: <input type="text" id="addName" name="name" /></p>
+    <p>Phone Number: <input type="number" id="addPhoneNumber" name="phone number" /></p>
+    <p>Age: <input type="number" id="addAge" name="age" /></p>
+    <button type="button" onclick="_create()">Add</button>
     <p> </p>
     <h3>Buddy Information Delete</h3>
     <p>Please enter the id:</p>
     <input type="number" id="deleteID" name="id" />
     <button type="button" onclick="_delete()">Delete</button>
     <p> </p>
-    <h3>Buddy Information Add</h3>
-    <p>Please enter the name, phone number, and age:</p>
-    <p>Name: <input type="text" id="addName" name="name" /></p>
-    <p>Phone Number: <input type="number" id="addPhoneNumber" name="phone number" /></p>
-    <p>Age: <input type="number" id="addAge" name="age" /></p>
-    <button type="button" onclick="_add()">Add</button>
+    <p> </p>
+    <h3>Book View</h3>
+    <table id="tableView" border="1">
+        <thead>
+            <tr class="th">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+
+    </table>
     <script type="text/javascript">
-        function search() {
-            var name = document.getElementById("searchName").value;
-            var request = new XMLHttpRequest();
-            request.open("GET", "/BuddyInfo/search/findByName?name=" + name);
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send();
-            request.onload = function() {
-                if(request.status == 200) {
-                    alert(request.responseText);
-                } else {
-                    alert("Search request failed");
+        $(document).ready(function() {
+            _refresh();
+        });
+
+        function _refresh() {
+            $.ajax({
+                url: "/AddressBook/show",
+                type: 'GET',
+                success: function(buddies){
+                    console.log(buddies);
+                    var tableBody = document.getElementById("tableBody");
+                    while (tableBody.children[0] != null) {
+                        tableBody.removeChild(tableBody.children[0]);
+                    }
+                    buddies.buddyInfo.forEach(e => {
+                        var row = document.createElement('tr');
+                        var idCell = document.createElement('td');
+                        idCell.innerHTML = e.id;
+                        row.appendChild(idCell);
+                        var nameCell = document.createElement('td');
+                        nameCell.innerHTML = e.name;
+                        row.appendChild(nameCell);
+                        var phoneCell = document.createElement('td');
+                        phoneCell.innerHTML = e.phoneNumber;
+                        row.appendChild(phoneCell);
+                        var ageCell = document.createElement('td');
+                        ageCell.innerHTML = e.age;
+                        row.appendChild(ageCell);
+                        tableBody.appendChild(row);
+                    });
+                },
+                error: function(res){
+                    alert(res);
                 }
-            }
+            });
+        }
+
+        function _create() {
+            var name = document.getElementById("addName").value;
+            var phoneNumber = document.getElementById("addPhoneNumber").value;
+            var age = document.getElementById("addAge").value;
+            $.ajax({
+                url: "/AddressBook/create?name=" + name + "&phoneNumber=" + phoneNumber + "&age=" + age,
+                type: 'POST',
+                success: function(res){
+                    console.log(res);
+                    _refresh();
+                },
+                error: function(res){
+                    alert(JSON.stringify(res));
+                }
+            });
         }
 
         function _delete() {
             var id = document.getElementById("deleteID").value;
-            var request = new XMLHttpRequest();
-            request.open("DELETE", "/BuddyInfo/" + id);
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send();
-            request.onload = function() {
-                if(request.status == 204) {
-                    alert("Delete success");
-                } else {
-                    alert("Delete request failed");
+            $.ajax({
+                url: "/AddressBook/delete?id=" + id,
+                type: 'GET',
+                success: function(res){
+                    console.log(res);
+                    _refresh();
+                },
+                error: function(res){
+                    alert(JSON.stringify(res));
                 }
-            }
-        }
-
-        function _add() {
-            var name = document.getElementById("addName").value;
-            var phoneNumber = document.getElementById("addPhoneNumber").value;
-            var age = document.getElementById("addAge").value;
-            var data = {};
-            data.name = name;
-            data.phoneNumber = phoneNumber;
-            data.age = age;
-            var request = new XMLHttpRequest();
-            request.open("POST", "/BuddyInfo");
-            request.setRequestHeader('Content-Type', 'application/json');
-            request.send(JSON.stringify(data));
-            request.onload = function() {
-                if(request.status == 201) {
-                    alert(request.responseText);
-                } else {
-                    alert("Add request failed");
-                }
-            }
+            });
         }
     </script>
 </body>
