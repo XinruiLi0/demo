@@ -25,7 +25,6 @@ public class WebApplicationTest {
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/HelloWorld")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello World")));
+        this.mockMvc.perform(get("/AddressBook/show")).andDo(print()).andExpect(status().isOk());
     }
 }
