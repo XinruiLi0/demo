@@ -1,4 +1,4 @@
-package lab;
+package web;
 
 import javax.persistence.*;
 import java.util.ArrayList;

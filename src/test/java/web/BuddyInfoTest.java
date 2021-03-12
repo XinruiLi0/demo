@@ -1,4 +1,4 @@
-package lab;
+package web;
 
 import org.junit.Assert;
 import org.junit.Before;

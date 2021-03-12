@@ -1,4 +1,4 @@
-package lab;
+package web;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
